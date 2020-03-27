@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html class="no-js" lang="es">
 
 <head>
     <meta charset="utf-8">
@@ -12,6 +12,8 @@
     <script src="https://kit.fontawesome.com/947b7a261c.js" crossorigin="anonymous"></script>
     <!-- Place favicon.ico in the root directory -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald|PT+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
 
@@ -37,7 +39,7 @@
                 <div class="informacion-evento">
                     <div class="clearfix">
                         <p class="fecha"><i class="fas fa-calendar-alt"></i> 23/09/2020</p>
-                        <p class="ciudad"><i class="fas fa-map-pin"></i> Valparaíso, CL</p>
+                        <p class="ciudad"><i class="fas fa-map-pin"></i> Santiago, CL</p>
                     </div>
 
                     <h1 class="nombre-sitio">AtomDev</h1>
@@ -54,7 +56,9 @@
     <div class="barra">
         <div class="contenedor clearfix">
             <div class="logo">
-                <img src="img/logo.svg" alt="logo atomdev">
+                <a href="index.html">
+                    <img src="img/logo.svg" alt="logo atomdev">
+                </a>
             </div>
             <div class="menu-movil">
                 <span></span>
@@ -62,10 +66,10 @@
                 <span></span>
             </div>
             <nav class="navegacion-principal clearfix">
-                <a href="#">Conferencia</a>
+                <a href="conferencia.html">Conferencia</a>
                 <a href="#">Calendario</a>
                 <a href="#">Invitados</a>
-                <a href="#">Reservaciones</a>
+                <a href="registro.html">Reservaciones</a>
 
             </nav>
         </div>
@@ -110,6 +114,36 @@
                             <p><i class="fa fa-clock-o" aria-hidden="true"></i> 18:00 hrs </p>
                             <p><i class="fa fa-calendar" aria-hidden="true"></i> 10 de Dic </p>
                             <p><i class="fa fa-user" aria-hidden="true"></i> Rodrigo Catalán</p>
+                        </div>
+                        <a href="#" class="button float-rigth">Ver todos</a>
+                    </div>
+                    <div class="info-curso ocultar clearfix" id="conferencias">
+                        <div class="detalle-evento">
+                            <h3> Asesoria Ambiental </h3>
+                            <p><i class="fa fa-clock-o" aria-hidden="true"></i> 16:00 hrs </p>
+                            <p><i class="fa fa-calendar" aria-hidden="true"></i> 11 de Dic </p>
+                            <p><i class="fa fa-user" aria-hidden="true"></i> Cristian Catalán</p>
+                        </div>
+                        <div class="detalle-evento">
+                            <h3> Energía Renovable</h3>
+                            <p><i class="fa fa-clock-o" aria-hidden="true"></i> 18:00 hrs </p>
+                            <p><i class="fa fa-calendar" aria-hidden="true"></i> 11 de Dic </p>
+                            <p><i class="fa fa-user" aria-hidden="true"></i> Cristian Catalán</p>
+                        </div>
+                        <a href="#" class="button float-rigth">Ver todos</a>
+                    </div>
+                    <div class="info-curso ocultar clearfix" id="seminarios">
+                        <div class="detalle-evento">
+                            <h3> RISES Y RILES en la Industria Mundial</h3>
+                            <p><i class="fa fa-clock-o" aria-hidden="true"></i> 16:00 hrs </p>
+                            <p><i class="fa fa-calendar" aria-hidden="true"></i> 12 de Dic </p>
+                            <p><i class="fa fa-user" aria-hidden="true"></i> Karen Lira</p>
+                        </div>
+                        <div class="detalle-evento">
+                            <h3> Propuesta Neumático OTR como reemplazo del carbón</h3>
+                            <p><i class="fa fa-clock-o" aria-hidden="true"></i> 18:00 hrs </p>
+                            <p><i class="fa fa-calendar" aria-hidden="true"></i> 12 de Dic </p>
+                            <p><i class="fa fa-user" aria-hidden="true"></i> Karen Lira</p>
                         </div>
                         <a href="#" class="button float-rigth">Ver todos</a>
                     </div>
@@ -169,13 +203,13 @@
         <div class="contenedor">
             <ul class="resumen-evento clearfix">
                 <li>
-                    <p class="numero">6</p> Invitados</li>
+                    <p class="numero"></p> Invitados</li>
                 <li>
-                    <p class="numero">15</p> Talleres</li>
+                    <p class="numero"></p> Talleres</li>
                 <li>
-                    <p class="numero">3</p> Días</li>
+                    <p class="numero"></p> Días</li>
                 <li>
-                    <p class="numero">9</p> Conferencias</li>
+                    <p class="numero"></p> Conferencias</li>
             </ul>
         </div>
     </div>
@@ -271,7 +305,7 @@
         <div class="contenido contenedor">
             <p>Resistrate al newsletter:</p>
             <h3>AtomDev</h3>
-            <a href="#" class="button transparent">Registro</a>
+            <a href="registro.html" class="button transparent">Registro</a>
 
         </div>
     </div>
@@ -281,16 +315,16 @@
         <div class="cuenta-regresiva contenedor">
             <ul class="clearfix">
                 <li>
-                    <p class="numero">80</p> días
+                    <p id="dias" class="numero"></p> días
                 </li>
                 <li>
-                    <p class="numero">15</p> horas
+                    <p id="horas" class="numero"></p> horas
                 </li>
                 <li>
-                    <p class="numero">5</p> minutos
+                    <p id="minutos" class="numero"></p> minutos
                 </li>
                 <li>
-                    <p class="numero">30</p> segundos
+                    <p id="segundos" class="numero"></p> segundos
                 </li>
             </ul>
 
@@ -336,7 +370,11 @@
         window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js "><\/script>')
     </script>
     <script src="js/plugins.js "></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/jquery.lettering.js"></script>
     <script src="js/main.js "></script>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
 
     <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
     <script>
